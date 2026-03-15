@@ -1,0 +1,6 @@
+# لیست ادمین‌ها
+# هر خط یک آیدی
+
+admin_example_1
+admin_example_2
+admin_example_3

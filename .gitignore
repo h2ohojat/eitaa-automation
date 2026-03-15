@@ -1,0 +1,22 @@
+# Node
+node_modules/
+
+# Playwright
+ms-playwright/
+
+# Sessions
+eitaa-session/
+
+# Logs
+logs/
+
+# Runtime config
+config.json
+admins.txt
+
+# Env
+.env
+
+# OS
+.DS_Store
+Thumbs.db

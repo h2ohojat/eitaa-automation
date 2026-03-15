@@ -1,0 +1,8 @@
+{
+  "sourceChannel": "@example_channel",
+  "delayBetweenMessages": 3000,
+  "adminLimit": {
+    "enabled": false,
+    "max": 10
+  }
+}

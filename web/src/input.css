@@ -1,0 +1,26 @@
+/* Tailwind v4 – CSS First */
+@import "tailwindcss";
+
+/* اعلام اینکه از utilityهای Tailwind استفاده می‌کنیم */
+@reference utilities;
+
+/* تنظیمات کلی */
+:root {
+  direction: rtl;
+  font-family: Vazirmatn, sans-serif;
+}
+
+/* کامپوننت‌های سفارشی */
+@layer components {
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold;
+  }
+
+  .stat-box {
+    @apply bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg;
+  }
+}

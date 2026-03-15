@@ -1,0 +1,37 @@
+{
+  "name": "eitaa-auto-forward",
+  "version": "1.1.0",
+  "description": "سیستم اتوماسیون فوروارد پیام در ایتا + داشبورد وب لوکال",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "login": "node login.js",
+    "test": "node forward-test.js",
+    "read": "node read-channel.js",
+    "forward": "node auto-forward.js",
+    "web": "node web/server.js",
+    "build:css": "npx @tailwindcss/cli -i ./web/src/input.css -o ./web/public/css/tailwind.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./web/src/input.css -o ./web/public/css/tailwind.css --watch"
+  },
+  "keywords": [
+    "eitaa",
+    "automation",
+    "forward",
+    "dashboard",
+    "playwright",
+    "tailwind"
+  ],
+  "author": "pyamooz",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.27",
+    "express": "^5.2.1",
+    "playwright": "^1.58.2",
+    "postcss": "^8.5.8",
+    "socket.io": "^4.8.3",
+    "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.1"
+  }
+}
