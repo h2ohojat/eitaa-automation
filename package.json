@@ -4,6 +4,7 @@
   "description": "سیستم اتوماسیون فوروارد پیام در ایتا + داشبورد وب لوکال",
   "main": "index.js",
   "scripts": {
+    "setup": "node scripts/setup.js",
     "start": "node index.js",
     "login": "node login.js",
     "test": "node forward-test.js",
