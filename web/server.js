@@ -11,6 +11,13 @@ const path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
 const { attachSocket } = require('../logger');
+const {
+  ADMINS_FILE,
+  CONFIG_FILE,
+  LOGS_DIR,
+  SESSION_DIR,
+  PROJECT_ROOT
+} = require('../core/paths');
 
 const app = express();
 const server = http.createServer(app);
@@ -34,10 +41,8 @@ let isForwardRunning = false;
 //  مسیرها
 // ═══════════════════════════════════════════════════════════════
 
-const CONFIG_PATH = path.join(__dirname, '..', 'config.json');
-const ADMINS_PATH = path.join(__dirname, '..', 'admins.txt');
-const LOGS_DIR = path.join(__dirname, '..', 'logs');
-const SESSION_DIR = path.join(__dirname, '..', 'eitaa-session');
+const CONFIG_PATH = CONFIG_FILE;
+const ADMINS_PATH = ADMINS_FILE;
 
 // ═══════════════════════════════════════════════════════════════
 //  تنظیمات Express
@@ -226,7 +231,7 @@ io.on('connection', (socket) => {
       process.execPath, // node فعلی (NVM-safe)
       ['auto-forward.js'],
       {
-        cwd: path.join(__dirname, '..'),
+        cwd: PROJECT_ROOT,
         stdio: ['ignore', 'pipe', 'pipe'],
         windowsHide: false
       }

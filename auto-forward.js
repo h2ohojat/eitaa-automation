@@ -8,13 +8,19 @@
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
+const {
+    ADMINS_FILE,
+    CONFIG_FILE,
+    LOGS_DIR,
+    SESSION_DIR
+} = require('./core/paths');
 const { log } = require('./logger'); // ✅ لاگر مرکزی
 
 // ═══════════════════════════════════════════════════════════════
 //  بخش ۱: بارگذاری تنظیمات از فایل config.json
 // ═══════════════════════════════════════════════════════════════
 
-const configPath = path.join(__dirname, 'config.json');
+const configPath = CONFIG_FILE;
 let config;
 
 try {
@@ -31,7 +37,7 @@ try {
 //  بخش ۲: بارگذاری لیست ادمین‌ها از فایل admins.txt
 // ═══════════════════════════════════════════════════════════════
 
-const adminsFilePath = path.join(__dirname, 'admins.txt');
+const adminsFilePath = ADMINS_FILE;
 let targetAdmins = [];
 
 try {
@@ -56,7 +62,7 @@ try {
 //  بخش ۳: سیستم گزارش‌گیری (Logging)
 // ═══════════════════════════════════════════════════════════════
 
-const logsDir = path.join(__dirname, 'logs');
+const logsDir = LOGS_DIR;
 if (!fs.existsSync(logsDir)) {
     fs.mkdirSync(logsDir);
     console.log('📁 پوشه logs ساخته شد.');
@@ -139,7 +145,7 @@ async function retryOperation(operation, operationName, maxAttempts = config.ret
     writeLog(`👥 تعداد مخاطبین: ${targetAdmins.length} نفر`);
     writeLog('═══════════════════════════════════════════════════════════');
 
-    const userDataDir = path.join(__dirname, 'eitaa-session');
+    const userDataDir = SESSION_DIR;
     let context;
     let page;
 

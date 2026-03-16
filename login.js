@@ -1,12 +1,12 @@
 const { chromium } = require('playwright');
-const path = require('path');
 const fs = require('fs');
+const { SESSION_DIR } = require('./core/paths');
 
 (async () => {
     console.log("🔄 در حال آماده‌سازی ماژول لاگین...");
 
     // مسیر ذخیره‌سازی نشست (Session) در پوشه جاری
-    const userDataDir = path.join(__dirname, 'eitaa-session');
+    const userDataDir = SESSION_DIR;
 
     try {
         console.log("🌐 در حال باز کردن مرورگر کروم سیستم شما (برای جلوگیری از خطای دانلود Playwright)...");

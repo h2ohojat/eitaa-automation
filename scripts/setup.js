@@ -1,5 +1,13 @@
-import { execSync } from "child_process";
-import fs from "fs";
+const { execSync } = require("child_process");
+const fs = require("fs");
+const path = require("path");
+const {
+  PROJECT_ROOT,
+  ADMINS_FILE,
+  CONFIG_FILE,
+  LOGS_DIR,
+  SESSION_DIR
+} = require("../core/paths");
 
 function run(cmd) {
   console.log(`\n> ${cmd}`);
@@ -17,7 +25,6 @@ if (Number.isNaN(nodeMajor) || nodeMajor < 20) {
 
 // Install dependencies
 run("npm install");
-
 // Install Playwright browser (chromium)
 try {
   run("npx playwright install chromium");
@@ -27,22 +34,25 @@ try {
   console.warn(`   Error: ${error.message}`);
 }
 
+const CONFIG_EXAMPLE = path.join(PROJECT_ROOT, "config.example.json");
+const ADMINS_EXAMPLE = path.join(PROJECT_ROOT, "admins.example.txt");
+
 // Create folders
-["logs", "eitaa-session"].forEach((dir) => {
+[LOGS_DIR, SESSION_DIR].forEach((dir) => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
-    console.log(`📁 Created ${dir}`);
+    console.log(`📁 Created ${path.basename(dir)}`);
   }
 });
 
 // Copy config
-if (!fs.existsSync("config.json")) {
-  fs.copyFileSync("config.example.json", "config.json");
+if (!fs.existsSync(CONFIG_FILE)) {
+  fs.copyFileSync(CONFIG_EXAMPLE, CONFIG_FILE);
   console.log("✅ config.json created");
 }
 
-if (!fs.existsSync("admins.txt")) {
-  fs.copyFileSync("admins.example.txt", "admins.txt");
+if (!fs.existsSync(ADMINS_FILE)) {
+  fs.copyFileSync(ADMINS_EXAMPLE, ADMINS_FILE);
   console.log("✅ admins.txt created");
 }
 

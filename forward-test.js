@@ -1,10 +1,10 @@
 const { chromium } = require('playwright');
-const path = require('path');
+const { SESSION_DIR } = require('./core/paths');
 
 (async () => {
     console.log('📡 شروع عملیات فوروارد (نسخه ضد گلوله)...');
 
-    const userDataDir = path.join(__dirname, 'eitaa-session');
+    const userDataDir = SESSION_DIR;
 
     const context = await chromium.launchPersistentContext(userDataDir, {
         headless: false,

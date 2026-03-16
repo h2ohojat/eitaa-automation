@@ -9,16 +9,20 @@ const { spawn } = require('child_process');
 const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
+const {
+    ADMINS_FILE,
+    CONFIG_FILE,
+    LOGS_DIR,
+    SESSION_DIR
+} = require('./core/paths');
 
 // ═══════════════════════════════════════════════════════════════
 //  تنظیمات و متغیرهای سراسری
 // ═══════════════════════════════════════════════════════════════
 
 const VERSION = '1.0.0';
-const CONFIG_PATH = path.join(__dirname, 'config.json');
-const ADMINS_PATH = path.join(__dirname, 'admins.txt');
-const LOGS_DIR = path.join(__dirname, 'logs');
-const SESSION_DIR = path.join(__dirname, 'eitaa-session');
+const CONFIG_PATH = CONFIG_FILE;
+const ADMINS_PATH = ADMINS_FILE;
 
 // رنگ‌ها برای ترمینال
 const colors = {
