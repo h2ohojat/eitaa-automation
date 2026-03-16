@@ -8,18 +8,11 @@
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
-const {
-    ADMINS_FILE,
-    CONFIG_FILE,
-    LOGS_DIR,
-    SESSION_DIR
-} = require('./core/paths');
-const { log } = require('./logger'); // ✅ لاگر مرکزی
+const { ADMINS_FILE, CONFIG_FILE, LOGS_DIR, SESSION_DIR } = require('./core/paths');
+const { preflight } = require('./core/preflight');
+const { log } = require('./logger'); // ? ???? ?????
 
-// ═══════════════════════════════════════════════════════════════
-//  بخش ۱: بارگذاری تنظیمات از فایل config.json
-// ═══════════════════════════════════════════════════════════════
-
+const env = preflight();
 const configPath = CONFIG_FILE;
 let config;
 
@@ -43,18 +36,18 @@ let targetAdmins = [];
 try {
     let fileContent = fs.readFileSync(adminsFilePath, 'utf-8');
     fileContent = fileContent.replace(/^\uFEFF/, ''); // حذف BOM ویندوز
-    
+
     targetAdmins = fileContent.split('\n')
         .map(id => id.trim())
         .filter(id => id.length > 0 && !id.startsWith('#')); // خطوط خالی و کامنت‌ها را نادیده بگیر
-    
+
     console.log(`📂 فایل ادمین‌ها خوانده شد. تعداد: ${targetAdmins.length} نفر`);
-    
+
     if (config.debug.verboseLog) {
         console.log('📋 لیست آیدی‌ها:', targetAdmins);
     }
 } catch (error) {
-    console.error('❌ خطا: فایل admins.txt پیدا نشد!');
+    console.error('❌ خطا: فایل admins.txt پیدا نشد یا قابل خواندن نیست!');
     process.exit(1);
 }
 
@@ -62,7 +55,7 @@ try {
 //  بخش ۳: سیستم گزارش‌گیری (Logging)
 // ═══════════════════════════════════════════════════════════════
 
-const logsDir = LOGS_DIR;
+const logsDir = env.logsDir.path;
 if (!fs.existsSync(logsDir)) {
     fs.mkdirSync(logsDir);
     console.log('📁 پوشه logs ساخته شد.');
@@ -357,3 +350,11 @@ async function retryOperation(operation, operationName, maxAttempts = config.ret
     
     console.log('\n✅ برنامه با موفقیت به پایان رسید.');
 })();
+
+
+
+
+
+
+
+

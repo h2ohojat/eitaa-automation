@@ -18,6 +18,7 @@ const {
   SESSION_DIR,
   PROJECT_ROOT
 } = require('../core/paths');
+const { preflight } = require('../core/preflight');
 
 const app = express();
 const server = http.createServer(app);
@@ -57,10 +58,12 @@ app.use(express.json());
 
 app.get('/api/stats', (req, res) => {
   try {
+    const pf = preflight();
+
     const stats = {
       adminsCount: getAdminsCount(),
       logsCount: getLogsCount(),
-      sessionStatus: fs.existsSync(SESSION_DIR),
+      session: pf.session,
       channelName: getChannelName(),
       lastReport: getLastReportInfo(),
       forwardRunning: isForwardRunning
@@ -322,3 +325,8 @@ server.listen(PORT, () => {
   console.log('║  ⏹️  برای توقف: Ctrl + C                                 ║');
   console.log('╚═══════════════════════════════════════════════════════════╝\n');
 });
+
+
+
+
+
